@@ -98,6 +98,23 @@ describe Board do
             end
         end
     end
+
+    describe 'winner?' do
+        context 'there is a winner' do
+            it 'returns true' do
+                board = Board.new()
+                play_moves(board, [7, 8, 5, 6, 3])
+                expect(board.winner?()).to be true
+            end
+        end
+        context 'there is no winner' do
+            it 'returns false' do
+                board = Board.new()
+                play_moves(board, [7, 8, 5, 6])
+                expect(board.winner?()).to be false
+            end
+        end
+    end
 end
 
 def play_moves(board, moves)

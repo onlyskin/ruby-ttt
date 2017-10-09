@@ -37,6 +37,10 @@ class Board
         false
     end
 
+    def winner?()
+        return !!winner 
+    end
+
     def play(move)
         @cells[move-1] = current_marker
     end
