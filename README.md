@@ -2,5 +2,6 @@
 
 ### To run the tests
 `rspec`
-(or for continuous testing)
+
+### To run the tests and watch files for changes
 `bundle exec guard`
