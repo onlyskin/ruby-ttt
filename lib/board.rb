@@ -38,10 +38,21 @@ class Board
     end
 
     def winner?()
-        return !!winner 
+        !!winner 
+    end
+
+    def tie?()
+        if _full? && !winner?
+            return true
+        end
+        return false
     end
 
     def play(move)
         @cells[move-1] = current_marker
+    end
+
+    def _full?
+        available_moves.length == 0
     end
 end

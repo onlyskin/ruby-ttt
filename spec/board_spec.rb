@@ -115,6 +115,37 @@ describe Board do
             end
         end
     end
+
+    describe 'tie?' do
+        context 'full board with winner' do
+            it 'returns false' do
+                board = Board.new()
+                play_moves(board, [1, 5, 7, 4, 6, 2, 8, 3, 9])
+                expect(board.tie?()).to be false
+            end
+        end
+        context 'full board no winner' do
+            it 'returns false' do
+                board = Board.new()
+                play_moves(board, [1, 5, 7, 4, 6, 2, 8, 9, 3])
+                expect(board.tie?()).to be true
+            end
+        end
+        context 'not full board with winner' do
+            it 'returns false' do
+                board = Board.new()
+                play_moves(board, [7, 8, 5, 6, 3])
+                expect(board.tie?()).to be false
+            end
+        end
+        context 'not full board no winner' do
+            it 'returns false' do
+                board = Board.new()
+                play_moves(board, [7, 8, 5, 6])
+                expect(board.tie?()).to be false
+            end
+        end
+    end
 end
 
 def play_moves(board, moves)
