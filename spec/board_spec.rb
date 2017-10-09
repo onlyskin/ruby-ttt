@@ -33,4 +33,75 @@ describe Board do
             end
         end
     end
+
+    describe 'winner' do
+        context 'no winner' do
+            it 'returns false' do
+                board = Board.new()
+                expect(board.winner).to be false
+            end
+        end
+        context 'X wins in left column' do
+            it 'returns X' do
+                board = Board.new()
+                play_moves(board, [1, 2, 4, 5, 7])
+                expect(board.winner).to eq('X')
+            end
+        end
+        context 'O wins in centre column' do
+            it 'returns O' do
+                board = Board.new()
+                play_moves(board, [1, 2, 3, 5, 6, 8])
+                expect(board.winner).to eq('O')
+            end
+        end
+        context 'X wins in right column' do
+            it 'returns X' do
+                board = Board.new()
+                play_moves(board, [3, 2, 6, 5, 9])
+                expect(board.winner).to eq('X')
+            end
+        end
+        context 'X wins in first row' do
+            it 'returns X' do
+                board = Board.new()
+                play_moves(board, [1, 4, 2, 5, 3])
+                expect(board.winner).to eq('X')
+            end
+        end
+        context 'O wins in second row' do
+            it 'returns O' do
+                board = Board.new()
+                play_moves(board, [1, 4, 8, 5, 9, 6])
+                expect(board.winner).to eq('O')
+            end
+        end
+        context 'X wins in third row' do
+            it 'returns X' do
+                board = Board.new()
+                play_moves(board, [7, 4, 8, 5, 9])
+                expect(board.winner).to eq('X')
+            end
+        end
+        context 'X wins on first diagonal' do
+            it 'returns X' do
+                board = Board.new()
+                play_moves(board, [1, 2, 5, 3, 9])
+                expect(board.winner).to eq('X')
+            end
+        end
+        context 'X wins on second diagonal' do
+            it 'returns X' do
+                board = Board.new()
+                play_moves(board, [7, 8, 5, 6, 3])
+                expect(board.winner).to eq('X')
+            end
+        end
+    end
+end
+
+def play_moves(board, moves)
+    moves.each do |move|
+        board.play(move)
+    end
 end
