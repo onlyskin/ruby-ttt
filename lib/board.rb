@@ -19,6 +19,6 @@ class Board
     end
 
     def play(move)
-        @cells[move-1] = 'X'
+        @cells[move-1] = current_marker
     end
 end
