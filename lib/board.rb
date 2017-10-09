@@ -1,17 +1,19 @@
 class Board
-    def initialize()
-        @cells = ['-','-','-','-','-','-','-','-','-']
+    def initialize
+        @cells = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
     end
 
-    def [](key)
-        @cells[key]
+    def availableMoves
+        result = []
+        @cells.each_with_index do |v, i|
+            if v == '-'
+                result.push(i+1)
+            end
+        end
+        result
     end
 
-    def []=(key, value)
-        @cells[key] = value
-    end
-
-    def availableSpaces
-        [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    def play(move)
+        @cells[move-1] = 'X'
     end
 end

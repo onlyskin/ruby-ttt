@@ -1,30 +1,19 @@
 require 'Board'
 
 describe Board do
-    describe '[]' do
-        context 'given new board, (3)' do
-            it 'returns "-"' do
+    describe 'availableMoves' do
+        context 'after calling #play(1)' do
+            it '1 is unavailable' do
                 board = Board.new()
-                expect(board[3]).to eq("-")
+                board.play(1)
+                expect(board.availableMoves).to eq([2, 3, 4, 5, 6, 7, 8, 9])
             end
         end
-    end
-
-    describe '[]=' do
-        context '(7, "X")' do
-            it 'then [] returns "X" for (7)' do
+        context 'after calling #play(2)' do
+            it '2 is unavailable' do
                 board = Board.new()
-                board[7] = "X"
-                expect(board[7]).to eq("X")
-            end
-        end
-    end
-
-    describe '#availableSpaces' do
-        context 'given new board' do
-            it 'returns array of 1 to 9' do
-                board = Board.new() 
-                expect(board.availableSpaces).to eql([1, 2, 3, 4, 5, 6, 7, 8, 9])
+                board.play(2)
+                expect(board.availableMoves).to eq([1, 3, 4, 5, 6, 7, 8, 9])
             end
         end
     end
