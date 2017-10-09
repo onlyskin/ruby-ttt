@@ -1,6 +1,7 @@
 class Board
     def initialize
         @cells = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
+        @Markers = ['O', 'X']
     end
 
     def availableMoves
@@ -11,6 +12,10 @@ class Board
             end
         end
         result
+    end
+
+    def currentMarker
+        @Markers[availableMoves.length % 2]
     end
 
     def play(move)

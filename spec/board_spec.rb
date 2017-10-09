@@ -17,4 +17,20 @@ describe Board do
             end
         end
     end
+
+    describe 'currentMarker' do
+        context 'at start'do
+            it 'is X' do
+                board = Board.new()
+                expect(board.currentMarker).to eq('X')
+            end
+        end
+        context 'after one turn' do
+            it 'is O' do
+                board = Board.new()
+                board.play(1)
+                expect(board.currentMarker).to eq('O')
+            end
+        end
+    end
 end
