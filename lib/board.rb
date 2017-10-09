@@ -4,7 +4,7 @@ class Board
         @Markers = ['O', 'X']
     end
 
-    def availableMoves
+    def available_moves
         result = []
         @cells.each_with_index do |v, i|
             if v == '-'
@@ -14,8 +14,8 @@ class Board
         result
     end
 
-    def currentMarker
-        @Markers[availableMoves.length % 2]
+    def current_marker
+        @Markers[available_moves.length % 2]
     end
 
     def play(move)
