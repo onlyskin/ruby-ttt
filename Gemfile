@@ -1,0 +1,8 @@
+# A sample Gemfile
+source "https://rubygems.org"
+
+group :development do
+    gem "guard"
+    gem "rspec"
+    gem 'guard-rspec', require: false
+end
