@@ -3,7 +3,7 @@
 ### To install dependencies
 `bundle install`
 
-(see [http://bundler.io/](http://bundler.io/) for installation instructions)
+(see [http://bundler.io/](bundler.io) for installation instructions for Bundler itself)
 
 ### To run the tests
 `rspec`
