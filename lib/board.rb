@@ -45,7 +45,11 @@ class Board
         if _full? && !winner?
             return true
         end
-        return false
+        false
+    end
+
+    def game_over?()
+        winner? || tie?
     end
 
     def play(move)
