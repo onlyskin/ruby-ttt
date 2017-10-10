@@ -41,7 +41,7 @@ describe App do
     describe 'run' do
         context 'run app' do
             it 'calls play on BoardSpy with input until no more available moves' do
-                input = StringIO.new("7\n4\n6\n2\n8\n9\n3\n")
+                input = StringIO.new("7\n4\n6\n2\n8\n9\n3\nthis_doesnt_get_read\n")
                 output = StringIO.new()
                 board_spy = BoardSpy.new()
                 board_spy.play(1)
