@@ -183,6 +183,16 @@ describe Board do
             end
         end
     end
+
+    describe 'to_s' do
+        context 'to_s called' do
+            it 'returns string representation' do
+                board = Board.new()
+                play_moves(board, [7, 8, 5, 6])
+                expect(board.to_s).to eq('---\n-XO\nXO-\n')
+            end
+        end
+    end
 end
 
 def play_moves(board, moves)
