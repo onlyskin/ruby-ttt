@@ -169,6 +169,20 @@ describe Board do
             end
         end
     end
+
+    describe 'play' do
+        context 'when X winning sequence played' do
+            it 'winner returns X' do
+                board = Board.new()
+                board.play(1)
+                board.play(2)
+                board.play(4)
+                board.play(5)
+                board.play(7)
+                expect(board.winner()).to eq('X')
+            end
+        end
+    end
 end
 
 def play_moves(board, moves)
