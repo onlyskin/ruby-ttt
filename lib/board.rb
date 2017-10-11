@@ -37,18 +37,18 @@ class Board
         false
     end
 
-    def winner?()
+    def winner?
         !!winner 
     end
 
-    def tie?()
-        if _full? && !winner?
+    def tie?
+        if full? && !winner?
             return true
         end
         false
     end
 
-    def game_over?()
+    def game_over?
         winner? || tie?
     end
 
@@ -56,7 +56,7 @@ class Board
         @cells[move-1] = current_marker
     end
 
-    def to_s()
+    def to_s
         result = ""
         (0..8).each do |i|
             result << @cells[i]
@@ -67,7 +67,8 @@ class Board
         result
     end
 
-    def _full?
+    private
+    def full?
         available_moves.length == 0
     end
 end

@@ -27,7 +27,7 @@ describe App do
                 app.run()
                 expect(board_spy.play_called_with).to eq([1, 2, 4, 5, 7])
             end
-            it 'calls to_s on board_spy six times' do
+            it 'turns board in to printable string for each move made' do
                 input = StringIO.new("1\n2\n4\n5\n7\n")
                 output = StringIO.new()
                 ui = Ui.new(input, output)
