@@ -1,18 +1,24 @@
 require 'App'
 
 class BoardSpy < Board
-    attr_reader :play_called, :play_called_with
+    attr_reader :play_called, :play_called_with, :to_s_called_count
 
     def initialize
         super()
         @play_called = false
         @play_called_with = []
+        @to_s_called_count = 0
     end
 
     def play(move)
         super(move)
         @play_called = true
         @play_called_with.push(move)
+    end
+
+    def to_s()
+        super()
+        @to_s_called_count += 1
     end
 end
 
@@ -58,6 +64,14 @@ describe App do
                 app = App.new(input, output, board_spy)
                 app.run()
                 expect(board_spy.play_called_with).to eq([1, 2, 4, 5, 7])
+            end
+            it 'calls to_s on board_spy six times' do
+                input = StringIO.new("1\n2\n4\n5\n7\n")
+                output = StringIO.new()
+                board_spy = BoardSpy.new()
+                app = App.new(input, output, board_spy)
+                app.run()
+                expect(board_spy.to_s_called_count).to eq(6)
             end
         end
     end
