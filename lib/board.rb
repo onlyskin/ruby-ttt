@@ -57,11 +57,11 @@ class Board
     end
 
     def to_s()
-        result = ''
+        result = ""
         (0..8).each do |i|
             result << @cells[i]
             if i % 3 == 2
-                result << '\n'
+                result << "\n"
             end
         end
         result

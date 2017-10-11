@@ -163,7 +163,7 @@ describe Board do
         context 'to_s called' do
             it 'returns string representation' do
                 board = make_board_and_play_moves([7, 8, 5, 6])
-                expect(board.to_s).to eq('---\n-XO\nXO-\n')
+                expect(board.to_s).to eq("---\n-XO\nXO-\n")
             end
         end
     end
