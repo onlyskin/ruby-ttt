@@ -56,6 +56,17 @@ class Board
         @cells[move-1] = current_marker
     end
 
+    def to_s()
+        result = ""
+        (0..8).each do |i|
+            result << @cells[i]
+            if i % 3 == 2
+                result << "\n"
+            end
+        end
+        result
+    end
+
     def _full?
         available_moves.length == 0
     end
