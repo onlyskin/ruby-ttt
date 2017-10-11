@@ -1,5 +1,5 @@
 class Ui
-    def initialize(input, output)
+    def initialize(input=$stdin, output=$stdout)
         @input = input
         @output = output
     end
