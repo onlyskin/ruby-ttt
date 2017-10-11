@@ -1,4 +1,4 @@
-require 'Board'
+require 'board.rb'
 
 describe Board do
     describe 'available_moves' do

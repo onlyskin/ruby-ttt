@@ -1,49 +1,7 @@
-require 'App'
-
-class BoardSpy < Board
-    attr_reader :play_called, :play_called_with, :to_s_called_count
-
-    def initialize
-        super()
-        @play_called = false
-        @play_called_with = []
-        @to_s_called_count = 0
-    end
-
-    def play(move)
-        super(move)
-        @play_called = true
-        @play_called_with.push(move)
-    end
-
-    def to_s()
-        super()
-        @to_s_called_count += 1
-    end
-end
+require 'app.rb'
+require 'board_spy.rb'
 
 describe App do
-    describe 'output' do
-        context 'call with string' do
-            it 'puts to output' do
-                input = StringIO.new("test input\n")
-                output = StringIO.new()
-                app = App.new(input, output)
-                app.output('test output')
-                expect(output.string).to eq("test output\n")
-            end
-        end
-    end
-    describe 'input' do
-        context 'call' do
-            it 'gets input' do
-                input = StringIO.new("test input\n")
-                output = StringIO.new()
-                app = App.new(input, output)
-                expect(app.input).to eq("test input")
-            end
-        end
-    end
     describe 'run' do
         context 'run app' do
             it 'calls play on BoardSpy with input until no more available moves' do
