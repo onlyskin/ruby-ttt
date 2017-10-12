@@ -17,13 +17,9 @@ class Board
     end
 
     def available_moves
-        result = []
-        @cells.each_with_index do |v, i|
-            if v == '-'
-                result.push(i+1)
-            end
-        end
-        result
+        @cells.map
+              .with_index(1) {|cell, i| cell == '-' ? i : nil}
+              .compact
     end
 
     def current_marker
@@ -44,10 +40,7 @@ class Board
     end
 
     def tie?
-        if full? && !winner?
-            return true
-        end
-        false
+        full? && !winner?
     end
 
     def game_over?
