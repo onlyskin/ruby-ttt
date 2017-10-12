@@ -10,10 +10,10 @@ class Board
         [0, 4, 8],
         [6, 4, 2],
     ]
+    MARKERS = ['O', 'X']
 
-    def initialize
-        @cells = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
-        @Markers = ['O', 'X']
+    def initialize(cells=['-', '-', '-', '-', '-', '-', '-', '-', '-'])
+        @cells = cells.clone
     end
 
     def available_moves
@@ -27,7 +27,7 @@ class Board
     end
 
     def current_marker
-        @Markers[available_moves.length % 2]
+        MARKERS[available_moves.length % 2]
     end
 
     def winner
@@ -57,6 +57,10 @@ class Board
     def play(move)
         @cells[move-1] = current_marker
     end
+
+    #def play2(move)
+    #    self
+    #end
 
     def to_s
         result = ""

@@ -1,9 +1,28 @@
 require 'board.rb'
 
 describe Board do
+    describe 'initialize' do
+        context 'no argument' do
+            it 'all moves available' do
+                board = Board.new
+                expect(board.available_moves).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9])
+            end
+        end
+        context 'cells given with first being X' do
+            it '1 is not available' do
+                cells = ['X', '-', '-', '-', '-', '-', '-', '-', '-']
+                board = Board.new(cells)
+                expect(board.available_moves).to eq([2, 3, 4, 5, 6, 7, 8, 9])
+            end
+        end
+    end
+
     describe 'available_moves' do
         context 'after calling #play(1)' do
             it '1 is unavailable' do
+                #board = Board.new
+                #board = board.play2(1)
+                #expect(board.available_moves).to eq([2, 3, 4, 5, 6, 7, 8, 9])
                 board = board_with_moves([1])
                 expect(board.available_moves).to eq([2, 3, 4, 5, 6, 7, 8, 9])
             end
