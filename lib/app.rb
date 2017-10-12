@@ -1,4 +1,4 @@
-require_relative 'board.rb'
+require_relative 'board'
 
 class App
     def initialize(ui, board = Board.new)
@@ -10,7 +10,7 @@ class App
         @ui.output(@board.to_s)
         while !@board.game_over?
             move = @ui.input.to_i
-            @board.play(move)
+            @board = @board.play(move)
             @ui.output(@board.to_s)
         end
     end
