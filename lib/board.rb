@@ -13,7 +13,7 @@ class Board
     MARKERS = ['O', 'X']
 
     def initialize(cells=['-', '-', '-', '-', '-', '-', '-', '-', '-'])
-        @cells = cells.clone
+        @cells = cells
     end
 
     def available_moves
@@ -56,11 +56,8 @@ class Board
 
     def play(move)
         @cells[move-1] = current_marker
+        Board.new(@cells)
     end
-
-    #def play2(move)
-    #    self
-    #end
 
     def to_s
         result = ""

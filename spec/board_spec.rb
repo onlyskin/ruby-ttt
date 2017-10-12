@@ -1,4 +1,4 @@
-require 'board.rb'
+require 'board'
 
 describe Board do
     describe 'initialize' do
@@ -20,9 +20,6 @@ describe Board do
     describe 'available_moves' do
         context 'after calling #play(1)' do
             it '1 is unavailable' do
-                #board = Board.new
-                #board = board.play2(1)
-                #expect(board.available_moves).to eq([2, 3, 4, 5, 6, 7, 8, 9])
                 board = board_with_moves([1])
                 expect(board.available_moves).to eq([2, 3, 4, 5, 6, 7, 8, 9])
             end
@@ -194,8 +191,10 @@ describe Board do
     end
     
     def play_moves(board, moves)
+        new_board = nil
         moves.each do |move|
-            board.play(move)
+            new_board = board.play(move)
         end
+        new_board
     end
 end
