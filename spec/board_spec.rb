@@ -134,14 +134,12 @@ describe Board do
   def board_with_moves(moves)
     board = described_class.new
     play_moves(board, moves)
-    board
   end
 
   def play_moves(board, moves)
-    new_board = nil
     moves.each do |move|
-      new_board = board.play(move)
+      board = board.play(move)
     end
-    new_board
+    board
   end
 end

@@ -39,8 +39,9 @@ class Board
   end
 
   def play(move)
-    @cells[move - 1] = current_marker
-    Board.new(@cells)
+    cells = @cells.clone
+    cells[move - 1] = current_marker
+    Board.new(cells)
   end
 
   def to_s

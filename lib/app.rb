@@ -7,6 +7,10 @@ class App
     @ui = ui
   end
 
+  def game_over?
+      @board.game_over?
+  end
+
   def run
     @ui.output(@board.to_s)
     until @board.game_over?
