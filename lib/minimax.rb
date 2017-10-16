@@ -6,14 +6,12 @@ class Minimax
       return [nil, score(board, marker)]
     end
 
-    nodes = []
-
-    board.available_moves.each do |move|
+    nodes = board.available_moves.map { |move|
       new_board = board.play(move)
       best_move = minimax(new_board, marker, depth+1)
       best_move[0] = move
-      nodes.push(best_move)
-    end
+      best_move
+    }
 
     best_by_score(nodes, depth)
   end
