@@ -126,7 +126,14 @@ describe Board do
     context 'to_s called' do
       it 'returns string representation' do
         board = board_with_moves([7, 8, 5, 6])
-        expect(board.to_s).to eq("---\n-XO\nXO-\n")
+        expected = %Q"┌───┬───┬───┐
+│ 1 │ 2 │ 3 │
+│───│───│───│
+│ 4 │ X │ O │
+│───│───│───│
+│ X │ O │ 9 │
+└───┴───┴───┘"
+        expect(board.to_s).to eq(expected)
       end
     end
   end

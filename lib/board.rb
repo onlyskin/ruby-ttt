@@ -45,17 +45,24 @@ class Board
   end
 
   def to_s
-    result = ''
-    (0..8).each do |i|
-      result << @cells[i]
-      if i % 3 == 2
-        result << "\n"
-      end
-    end
-    result
+    %Q(┌───┬───┬───┐
+│ #{cell_s(1)} │ #{cell_s(2)} │ #{cell_s(3)} │
+│───│───│───│
+│ #{cell_s(4)} │ #{cell_s(5)} │ #{cell_s(6)} │
+│───│───│───│
+│ #{cell_s(7)} │ #{cell_s(8)} │ #{cell_s(9)} │
+└───┴───┴───┘)
   end
 
   private
+
+  def cell_s(index)
+    if @cells[index-1] == '-'
+      return index.to_s
+    else
+      return @cells[index-1]
+    end
+  end
 
   def full?
     available_moves.empty?
