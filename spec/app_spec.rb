@@ -24,6 +24,15 @@ describe App do
         app.run
         expect(output.string).to include('X', 'O', '1', '│', '└')
       end
+      it 'prints user messages and error messages' do
+        input = StringIO.new("1\n2\n4\n5\n20\n7\n")
+        output = StringIO.new
+        ui = Ui.new(input, output)
+        app = App.new(ui)
+        app.run
+        expect(output.string).to include('move')
+        expect(output.string).to include('valid')
+      end
     end
   end
 end
