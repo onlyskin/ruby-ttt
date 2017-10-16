@@ -45,21 +45,18 @@ class Board
   end
 
   def to_s
-    "┌───┬───┬───┐\n│ " +
-    cellString(1) + " │ " +
-    cellString(2) + " │ " +
-    cellString(3) + " │\n│───│───│───│\n│ " +
-    cellString(4) + " │ " +
-    cellString(5) + " │ " +
-    cellString(6) + " │\n│───│───│───│\n│ " +
-    cellString(7) + " │ " +
-    cellString(8) + " │ " +
-    cellString(9) + " │\n└───┴───┴───┘";
+    %Q(┌───┬───┬───┐
+│ #{cell_s(1)} │ #{cell_s(2)} │ #{cell_s(3)} │
+│───│───│───│
+│ #{cell_s(4)} │ #{cell_s(5)} │ #{cell_s(6)} │
+│───│───│───│
+│ #{cell_s(7)} │ #{cell_s(8)} │ #{cell_s(9)} │
+└───┴───┴───┘)
   end
 
   private
 
-  def cellString(index)
+  def cell_s(index)
     if @cells[index-1] == '-'
       return index.to_s
     else
