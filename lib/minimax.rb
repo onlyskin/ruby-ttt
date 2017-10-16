@@ -30,6 +30,8 @@ class Minimax
     end
   end
 
+  private
+
   def score(board, marker)
     if board.tie?
       return 0
