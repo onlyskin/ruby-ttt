@@ -12,4 +12,8 @@ class Ui
   def input
     @input.gets.chomp
   end
+
+  def clear
+    @output.print("\e[H\e[2J")
+  end
 end

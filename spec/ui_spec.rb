@@ -22,4 +22,15 @@ describe Ui do
       end
     end
   end
+  describe 'clear' do
+    context 'call' do
+      it 'writes clearscreen char to output' do
+        input = StringIO.new("test input\n")
+        output = StringIO.new
+        ui = Ui.new(input, output)
+        ui.clear
+        expect(output.string).to eq("\e[H\e[2J")
+      end
+    end
+  end
 end
