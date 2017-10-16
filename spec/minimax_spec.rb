@@ -24,27 +24,6 @@ describe Minimax do
     end
   end
 
-  describe 'score' do
-    context 'calling player wins' do
-      it 'returns 10' do
-        board = board_from_s('XO-XO-X--')
-        expect(minimax.score(board, 'X')).to eq(10)
-      end
-    end
-    context 'there is a tie' do
-      it 'returns 0' do
-        board = board_from_s('XOXXOXOXO')
-        expect(minimax.score(board, 'O')).to eq(0)
-      end
-    end
-    context 'the other player wins' do
-      it 'returns -10' do
-        board = board_from_s('XO-XO-X--')
-        expect(minimax.score(board, 'O')).to eq(-10)
-      end
-    end
-  end
-
   def board_from_s(string)
     Board.new(string.split(''))
   end
