@@ -22,7 +22,7 @@ describe App do
         ui = Ui.new(input, output)
         app = App.new(ui)
         app.run
-        expect(output.string).to include('X', 'O', '-')
+        expect(output.string).to include('X', 'O', '1', '│', '└')
       end
     end
   end
