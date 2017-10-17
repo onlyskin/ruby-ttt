@@ -4,18 +4,25 @@ require 'minimax'
 require 'computer_player'
 
 describe Game do
+  def output_from_human_human_game_with_input(input1, input2)
+    output = StringIO.new
+    ui = Ui.new(nil, output)
+
+    human_player_1 = instance_double('HumanPlayer')
+    allow(human_player_1).to receive(:move).and_return(*input1)
+    human_player_2 = instance_double('HumanPlayer')
+    allow(human_player_2).to receive(:move).and_return(*input2)
+
+    game = Game.new(ui, [human_player_1, human_player_2])
+    game.run
+    
+    output
+  end
+
   describe 'run' do
     context 'run game' do
       it 'plays a human/human game to end' do
-        input = StringIO.new("1\n2\n4\n5\n7\n")
-        output = StringIO.new
-        ui = Ui.new(input, output)
-        players = [HumanPlayer.new(ui), HumanPlayer.new(ui)]
-        game = Game.new(ui, players)
-
-        game.run
-
-        expect(game.game_over?).to eq(true)
+        output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
         expect(output.string).to include('X won')
       end
 
@@ -36,51 +43,17 @@ describe Game do
       end
 
       it 'turns board in to printable string for each move made' do
-        input = StringIO.new("1\n2\n4\n5\n7\n")
-        output = StringIO.new
-        ui = Ui.new(input, output)
-        players = [HumanPlayer.new(ui), HumanPlayer.new(ui)]
-        game = Game.new(ui, players)
-
-        game.run
-
+        output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
         expect(output.string).to include('X', 'O', '1', '│', '└')
       end
 
-      it 'prints user messages and error messages' do
-        input = StringIO.new("1\n2\n4\n5\n20\n7\n")
-        output = StringIO.new
-        ui = Ui.new(input, output)
-        players = [HumanPlayer.new(ui), HumanPlayer.new(ui)]
-        game = Game.new(ui, players)
-
-        game.run
-
-        expect(output.string).to include('move')
-        expect(output.string).to include('valid')
-      end
-
       it 'prints who won' do
-        input = StringIO.new("1\n2\n4\n5\n7\n")
-        output = StringIO.new
-        ui = Ui.new(input, output)
-        players = [HumanPlayer.new(ui), HumanPlayer.new(ui)]
-        game = Game.new(ui, players)
-
-        game.run
-
+        output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
         expect(output.string).to include('X won')
       end
 
       it 'prints that it is a tie' do
-        input = StringIO.new("1\n5\n7\n4\n6\n2\n8\n9\n3\n")
-        output = StringIO.new
-        ui = Ui.new(input, output)
-        players = [HumanPlayer.new(ui), HumanPlayer.new(ui)]
-        game = Game.new(ui, players)
-
-        game.run
-
+        output = output_from_human_human_game_with_input([1, 7, 6, 8, 3], [5, 4, 2, 9])
         expect(output.string).to include('tie')
       end
     end
