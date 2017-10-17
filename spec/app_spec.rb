@@ -3,7 +3,7 @@ require 'ui'
 
 describe App do
   describe 'run' do
-    context 'run app' do
+    context 'run app with hardcoded human/human game' do
       it 'prints boards out' do
         input = StringIO.new("1\n2\n4\n5\n7\n")
         output = StringIO.new

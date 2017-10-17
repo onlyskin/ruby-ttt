@@ -1,4 +1,4 @@
-require 'move_requester'
+require_relative 'move_requester'
 
 class HumanPlayer
   def initialize(ui)

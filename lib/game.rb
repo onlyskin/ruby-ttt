@@ -1,10 +1,11 @@
 require_relative 'board'
 require_relative 'move_requester'
+require_relative 'human_player'
 
 class Game
-  def initialize(ui)
+  def initialize(ui, players)
     @ui = ui
-    @move_requester = MoveRequester.new(@ui)
+    @player1, @player2 = players
     @board = Board.new
   end
 
@@ -23,9 +24,18 @@ class Game
   private
 
   def run_turn
-    move = @move_requester.request(@board)
-    @board = @board.play(move)
+    play_move
     output_board
+    swap_players
+  end
+
+  def swap_players
+    @player1, @player2 = @player2, @player1
+  end
+
+  def play_move
+    move = @player1.move(@board)
+    @board = @board.play(move)
   end
 
   def output_board
