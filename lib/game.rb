@@ -15,6 +15,11 @@ class Game
       @board = @board.play(move)
       @ui.output(@board.to_s)
     end
+    if @board.tie?
+        @ui.output('The game ended in a tie.')
+    else
+        @ui.output("#{@board.winner} won.")
+    end
   end
 
   def game_over?
