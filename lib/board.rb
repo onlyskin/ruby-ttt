@@ -38,6 +38,16 @@ class Board
     winner?('X') || winner?('O') || tie?
   end
 
+  def winner
+      if !game_over?
+          raise Exception
+      elsif winner?('X')
+          return 'X'
+      elsif winner?('O')
+          return 'O'
+      end
+  end
+
   def play(move)
     cells = @cells.clone
     cells[move - 1] = current_marker

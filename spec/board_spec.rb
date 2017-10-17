@@ -94,19 +94,19 @@ describe Board do
       end
     end
     context 'X wins in left column' do
-      it 'returns X' do
+      it 'returns true' do
         board = board_with_moves([1, 2, 4, 5, 7])
         expect(board.game_over?).to be true
       end
     end
     context 'X wins in third row' do
-      it 'returns X' do
+      it 'returns true' do
         board = board_with_moves([7, 4, 8, 5, 9])
         expect(board.game_over?).to be true
       end
     end
     context 'X wins on second diagonal' do
-      it 'returns X' do
+      it 'returns true' do
         board = board_with_moves([7, 8, 5, 6, 3])
         expect(board.game_over?).to be true
       end
@@ -115,10 +115,33 @@ describe Board do
 
   describe 'play' do
     context 'when X winning sequence played' do
-      it 'winner returns X' do
+      it 'game is over' do
         board = board_with_moves([1, 2, 4, 5, 7])
         expect(board.game_over?).to be true
       end
+    end
+  end
+
+  describe 'winner' do
+    context 'when X wins' do
+      it 'returns X' do
+        board = board_with_moves([1, 2, 4, 5, 7])
+        expect(board.winner).to eq('X')
+      end
+    end
+
+    context 'when O wins' do
+      it 'returns O' do
+        board = board_with_moves([2, 1, 5, 4, 3, 7])
+        expect(board.winner).to eq('O')
+      end
+    end
+
+    context 'when no winner' do
+        it 'raises error' do
+            board = board_with_moves([2, 1, 5, 4, 3])
+            expect{board.winner}.to raise_error()
+        end
     end
   end
 
