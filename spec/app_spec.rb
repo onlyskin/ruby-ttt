@@ -4,7 +4,6 @@ require 'ui'
 describe App do
   describe 'run' do
     context 'run app' do
-
       it 'prints boards out' do
         input = StringIO.new("1\n2\n4\n5\n7\n")
         output = StringIO.new

@@ -12,7 +12,6 @@ describe MoveRequester do
   end
 
   context 'call request' do
-
     it 'outputs move request message' do
       set_ui_input(['6'])
 
@@ -46,7 +45,6 @@ describe MoveRequester do
       expect(@ui).to receive(:output).with(/valid input/)
       @move_requester.request(@board)
     end
-
   end
 
   def set_ui_input(values)

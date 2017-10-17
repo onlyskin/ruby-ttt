@@ -38,6 +38,16 @@ class Board
     winner?('X') || winner?('O') || tie?
   end
 
+  def winner
+    if !game_over?
+      raise Exception
+    elsif winner?('X')
+      'X'
+    elsif winner?('O')
+      'O'
+    end
+  end
+
   def play(move)
     cells = @cells.clone
     cells[move - 1] = current_marker
@@ -45,7 +55,7 @@ class Board
   end
 
   def to_s
-    %Q(┌───┬───┬───┐
+    %(┌───┬───┬───┐
 │ #{cell_s(1)} │ #{cell_s(2)} │ #{cell_s(3)} │
 │───│───│───│
 │ #{cell_s(4)} │ #{cell_s(5)} │ #{cell_s(6)} │
@@ -57,10 +67,10 @@ class Board
   private
 
   def cell_s(index)
-    if @cells[index-1] == '-'
-      return index.to_s
+    if @cells[index - 1] == '-'
+      index.to_s
     else
-      return @cells[index-1]
+      @cells[index - 1]
     end
   end
 
