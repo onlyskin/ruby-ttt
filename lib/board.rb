@@ -39,13 +39,13 @@ class Board
   end
 
   def winner
-      if !game_over?
-          raise Exception
-      elsif winner?('X')
-          return 'X'
-      elsif winner?('O')
-          return 'O'
-      end
+    if !game_over?
+      raise Exception
+    elsif winner?('X')
+      'X'
+    elsif winner?('O')
+      'O'
+    end
   end
 
   def play(move)
@@ -55,7 +55,7 @@ class Board
   end
 
   def to_s
-    %Q(┌───┬───┬───┐
+    %(┌───┬───┬───┐
 │ #{cell_s(1)} │ #{cell_s(2)} │ #{cell_s(3)} │
 │───│───│───│
 │ #{cell_s(4)} │ #{cell_s(5)} │ #{cell_s(6)} │
@@ -67,10 +67,10 @@ class Board
   private
 
   def cell_s(index)
-    if @cells[index-1] == '-'
-      return index.to_s
+    if @cells[index - 1] == '-'
+      index.to_s
     else
-      return @cells[index-1]
+      @cells[index - 1]
     end
   end
 

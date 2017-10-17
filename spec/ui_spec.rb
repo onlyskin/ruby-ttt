@@ -2,7 +2,6 @@ require 'Ui'
 
 describe Ui do
   describe 'output' do
-
     context 'call with string' do
       it 'puts to output' do
         input = StringIO.new("test input\n")
@@ -41,6 +40,5 @@ describe Ui do
         expect(output.string).to eq("\e[H\e[2J")
       end
     end
-
   end
 end

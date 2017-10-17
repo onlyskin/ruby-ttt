@@ -138,10 +138,10 @@ describe Board do
     end
 
     context 'when no winner' do
-        it 'raises error' do
-            board = board_with_moves([2, 1, 5, 4, 3])
-            expect{board.winner}.to raise_error()
-        end
+      it 'raises error' do
+        board = board_with_moves([2, 1, 5, 4, 3])
+        expect { board.winner }.to raise_error
+      end
     end
   end
 
@@ -149,13 +149,13 @@ describe Board do
     context 'to_s called' do
       it 'returns string representation' do
         board = board_with_moves([7, 8, 5, 6])
-        expected = %Q"┌───┬───┬───┐
+        expected = %(┌───┬───┬───┐
 │ 1 │ 2 │ 3 │
 │───│───│───│
 │ 4 │ X │ O │
 │───│───│───│
 │ X │ O │ 9 │
-└───┴───┴───┘"
+└───┴───┴───┘)
         expect(board.to_s).to eq(expected)
       end
     end
