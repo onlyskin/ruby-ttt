@@ -4,13 +4,26 @@ require 'ui'
 describe App do
   describe 'run' do
     def output_for_two_games
-        input = StringIO.new("1\n1\n2\n4\n5\n7\n1\n1\n2\n4\n5\n7\n2\n")
+        input = StringIO.new("1\n2\n2\n1\n2\n4\n5\n7\n1\n1\n2\n4\n5\n7\n2\n")
         output = StringIO.new
         ui = Ui.new(input, output)
         app = App.new(ui)
 
         app.run
         output
+    end
+
+    context 'run app with human/computer game' do
+      xit 'runs game' do
+        input = StringIO.new("1\n2\n1\n1\n7\n8\n")
+        output = StringIO.new
+        ui = Ui.new(input, output)
+        app = App.new(ui)
+
+        app.run
+
+        expect(output.string).to include('O won')
+      end
     end
 
     context 'run app with hardcoded human/human game' do
