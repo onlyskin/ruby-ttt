@@ -23,13 +23,14 @@ class App
   private
 
   def menu
-    @ui.clear
     choice = @choice_requester.request(@MENU_CHOICES.keys)
     @MENU_CHOICES.fetch(choice).call
   end
 
   def run_game
+    @ui.clear
     players = [HumanPlayer.new(@ui), HumanPlayer.new(@ui)]
+    #players = [HumanPlayer.new(@ui), ComputerPlayer.new(Minimax.new)]
     game = Game.new(@ui, players)
     game.run
     @ui.output('Thanks for playing.')

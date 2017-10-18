@@ -35,7 +35,7 @@ describe App do
         expect(@output.string).to match(/Play(.|\n)*Play/)
       end
 
-      it 'clears when printing the menu' do
+      it 'clears when playing a new game' do
         ui = instance_double(Ui)
         allow(ui).to receive(:clear)
         allow(ui).to receive(:output)
@@ -45,7 +45,7 @@ describe App do
 
         app.run
 
-        expect(ui).to have_received(:clear).twice
+        expect(ui).to have_received(:clear).once
       end
     end
   end
