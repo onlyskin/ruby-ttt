@@ -3,40 +3,49 @@ require 'ui'
 
 describe App do
   describe 'run' do
-    context 'run app with hardcoded human/human game' do
-      it 'prints boards out' do
-        input = StringIO.new("1\n1\n2\n4\n5\n7\n")
+    def output_for_two_games
+        input = StringIO.new("1\n1\n2\n4\n5\n7\n1\n1\n2\n4\n5\n7\n2\n")
         output = StringIO.new
         ui = Ui.new(input, output)
         app = App.new(ui)
 
         app.run
+        output
+    end
 
-        expect(output.string).to include('X', 'O', '1', '│', '└')
+    context 'run app with hardcoded human/human game' do
+      before(:each) do
+        @output = output_for_two_games
+      end
+      it 'prints boards out' do
+        expect(@output.string).to include('X', 'O', '1', '│', '└')
       end
 
       it 'prints start and end messages' do
-        input = StringIO.new("1\n1\n2\n4\n5\n20\n7\n")
-        output = StringIO.new
-        ui = Ui.new(input, output)
-        app = App.new(ui)
-
-        app.run
-
-        expect(output.string).to include('Welcome')
-        expect(output.string).to include('Thanks')
+        expect(@output.string).to include('Welcome')
+        expect(@output.string).to include('Thanks')
       end
 
       it 'prints a game menu' do
-        input = StringIO.new("2\n")
-        output = StringIO.new
-        ui = Ui.new(input, output)
+        expect(@output.string).to include('Play')
+        expect(@output.string).to include('Exit')
+      end
+
+      it 'plays two games in a row' do
+        expect(@output.string).to match(/Play(.|\n)*Play/)
+      end
+
+      it 'clears when printing the menu' do
+        ui = instance_double(Ui)
+        allow(ui).to receive(:clear)
+        allow(ui).to receive(:output)
+        allow(ui).to receive(:input)
+                 .and_return('1', '1', '2', '4', '5', '7', '2')
         app = App.new(ui)
 
         app.run
 
-        expect(output.string).to include('Play')
-        expect(output.string).to include('Exit')
+        expect(ui).to have_received(:clear).twice
       end
     end
   end
