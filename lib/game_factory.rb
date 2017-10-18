@@ -6,7 +6,7 @@ class GameFactory
     players = choices.map do |choice|
       self.choice_to_object(choice_hash, choice)
     end
-    game_class.new(*players)
+    game_class.new(ui, players)
   end
   
   private
