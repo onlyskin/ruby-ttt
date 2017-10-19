@@ -2,6 +2,7 @@ require_relative 'game'
 require_relative 'minimax'
 require_relative 'computer_player'
 require_relative 'choice_requester'
+require_relative 'game_factory'
 
 # A class to manage the running of a game
 class App
@@ -11,6 +12,8 @@ class App
     @choice_requester = ChoiceRequester.new(ui)
     @MENU_CHOICES = {'Play' => self.method(:run_game),
                      'Exit' => self.method(:exit)}
+    @PLAYER_CHOICES = {'Human' => HumanPlayer.new(ui),
+                       'Computer' => ComputerPlayer.new(Minimax.new)}
   end
 
   def run
@@ -29,9 +32,7 @@ class App
 
   def run_game
     @ui.clear
-    players = [HumanPlayer.new(@ui), HumanPlayer.new(@ui)]
-    #players = [HumanPlayer.new(@ui), ComputerPlayer.new(Minimax.new)]
-    game = Game.new(@ui, players)
+    game = GameFactory.from_input(@ui, @PLAYER_CHOICES)
     game.run
     @ui.output('Thanks for playing.')
   end
