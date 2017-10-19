@@ -19,18 +19,21 @@ describe Board do
       board = Board.new
       expect(board.available_moves).to eq(Array (1..9))
     end
-    xit 'at start is 1-16 when init with 4' do
-      board = Board.new(4)
+
+    it 'at start is 1-16 when init with 4' do
+      board = Board.new(size: 4)
       expect(board.available_moves).to eq(Array (1..16))
     end
+
     it 'after calling #play(1), 1 is unavailable' do
       board = board_with_moves([1])
       expect(board.available_moves).to eq([2, 3, 4, 5, 6, 7, 8, 9])
     end
 
-    it 'after calling #play(2), 2 is unavailable' do
-      board = board_with_moves([2])
-      expect(board.available_moves).to eq([1, 3, 4, 5, 6, 7, 8, 9])
+    it 'after calling #play(2) with 4x4, 2 is unavailable' do
+      board = Board.new(size: 4)
+      board = board.play(2)
+      expect(board.available_moves).to eq([1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
     end
   end
 
@@ -42,6 +45,14 @@ describe Board do
     
     it 'O after one play' do
       board = board_with_moves([1])
+      expect(board.current_marker).to eq('O')
+    end
+
+    it 'O after three plays with 4x4' do
+      board = Board.new(size: 4)
+      board = board.play(2)
+      board = board.play(3)
+      board = board.play(8)
       expect(board.current_marker).to eq('O')
     end
   end
@@ -129,6 +140,19 @@ describe Board do
 │───│───│───│
 │ X │ O │ 9 │
 └───┴───┴───┘)
+      expect(board.to_s).to eq(expected)
+    end
+    it 'returns 4x4 representation' do
+      board = Board.new(size: 4)
+      expected = %(┌───┬───┬───┬───┐
+│ 1 │ 2 │ 3 │ 4 │
+│───│───│───│───│
+│ 5 │ 6 │ 7 │ 8 │
+│───│───│───│───│
+│ 9 │10 │11 │12 │
+│───│───│───│───│
+│13 │14 │15 │16 │
+└───┴───┴───┴───┘)
       expect(board.to_s).to eq(expected)
     end
   end

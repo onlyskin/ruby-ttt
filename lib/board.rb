@@ -12,8 +12,12 @@ class Board
   ].freeze
   MARKERS = %w[O X].freeze
 
-  def initialize(cells: ['-', '-', '-', '-', '-', '-', '-', '-', '-'])
-    @cells = cells
+  def initialize(cells: 'no_cells_passed', size: 3)
+    if cells == 'no_cells_passed'
+      @cells = ['-'] * size * size
+    else
+      @cells = cells
+    end
   end
 
   def available_moves
@@ -23,7 +27,7 @@ class Board
   end
 
   def current_marker
-    MARKERS[available_moves.length % 2]
+    MARKERS[(@cells.length - available_moves.length - 1) % 2]
   end
 
   def winner?(marker)
@@ -53,16 +57,40 @@ class Board
   end
 
   def to_s
-    %(┌───┬───┬───┐
-│ #{cell_s(1)} │ #{cell_s(2)} │ #{cell_s(3)} │
-│───│───│───│
-│ #{cell_s(4)} │ #{cell_s(5)} │ #{cell_s(6)} │
-│───│───│───│
-│ #{cell_s(7)} │ #{cell_s(8)} │ #{cell_s(9)} │
-└───┴───┴───┘)
+    top_s = "┌───" + "┬───"*(size-1) + "┐\n"
+    bottom_s = '└───' + '┴───'*(size-1) + '┘'
+    top_s + middle_s + bottom_s
   end
 
   private
+
+  def size
+    Math.sqrt(@cells.length)
+  end
+  
+  def middle_s
+    rows = (0..size-1).each.map do |n|
+      row_s(n)
+    end
+    rows.join("\n") + "\n"
+  end
+
+  def row_s(n)
+      middle = ""
+      middle += "│"
+      (0..size-1).each do |m|
+        index = (n * size + m + 1).to_i
+        if index > 9
+          middle += "#{cell_s(index)} │"
+        else
+          middle += " #{cell_s(index)} │"
+        end
+      end
+      if (n != size-1)
+        middle += "\n│" + "───│"*(size)
+      end
+      middle
+  end
 
   def cell_s(index)
     if @cells[index - 1] == '-'
