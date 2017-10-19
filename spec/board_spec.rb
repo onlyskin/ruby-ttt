@@ -9,12 +9,20 @@ describe Board do
 
     it '1 is not available' do
       cells = ['X', '-', '-', '-', '-', '-', '-', '-', '-']
-      board = Board.new(cells)
+      board = Board.new(cells: cells)
       expect(board.available_moves).to eq([2, 3, 4, 5, 6, 7, 8, 9])
     end
   end
 
   describe '#available_moves' do
+    it 'at start is 1-9 be default' do
+      board = Board.new
+      expect(board.available_moves).to eq(Array (1..9))
+    end
+    xit 'at start is 1-16 when init with 4' do
+      board = Board.new(4)
+      expect(board.available_moves).to eq(Array (1..16))
+    end
     it 'after calling #play(1), 1 is unavailable' do
       board = board_with_moves([1])
       expect(board.available_moves).to eq([2, 3, 4, 5, 6, 7, 8, 9])

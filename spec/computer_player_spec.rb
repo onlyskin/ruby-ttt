@@ -19,7 +19,7 @@ describe ComputerPlayer do
     it 'takes winning move' do
       minimax = Minimax.new
       computer_player = ComputerPlayer.new(minimax)
-      board = Board.new(['X', 'O', '-', 'X', 'O', '-', '-', '-', '-'])
+      board = Board.new(cells: ['X', 'O', '-', 'X', 'O', '-', '-', '-', '-'])
 
       move = computer_player.move(board)
 

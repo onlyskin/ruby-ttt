@@ -26,6 +26,6 @@ describe Minimax do
   end
 
   def board_from_s(string)
-    Board.new(string.split(''))
+    Board.new(cells: string.split(''))
   end
 end

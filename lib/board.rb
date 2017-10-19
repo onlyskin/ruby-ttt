@@ -12,7 +12,7 @@ class Board
   ].freeze
   MARKERS = %w[O X].freeze
 
-  def initialize(cells = ['-', '-', '-', '-', '-', '-', '-', '-', '-'])
+  def initialize(cells: ['-', '-', '-', '-', '-', '-', '-', '-', '-'])
     @cells = cells
   end
 
@@ -49,7 +49,7 @@ class Board
   def play(move)
     cells = @cells.clone
     cells[move - 1] = current_marker
-    Board.new(cells)
+    Board.new(cells: cells)
   end
 
   def to_s
