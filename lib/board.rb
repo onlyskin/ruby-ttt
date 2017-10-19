@@ -1,16 +1,6 @@
 # A class which updates and reports the state of the Board
 class Board
-  PATHS = [
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 4, 8],
-    [6, 4, 2]
-  ].freeze
-  MARKERS = %w[O X].freeze
+  MARKERS = %w[O X]
 
   def initialize(cells: 'no_cells_passed', size: 3)
     if cells == 'no_cells_passed'
@@ -18,6 +8,17 @@ class Board
     else
       @cells = cells
     end
+
+    rows = Array.new(size){|i| Array.new(size){|j| size*i+j } }
+    columns = [
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8]
+    ]
+    @paths = columns + rows + [
+      [0, 4, 8],
+      [6, 4, 2]
+    ]
   end
 
   def available_moves
@@ -31,7 +32,7 @@ class Board
   end
 
   def winner?(marker)
-    PATHS.any? { |path| path.all? { |cell| @cells[cell] == marker } }
+    @paths.any? { |path| path.all? { |cell| @cells[cell] == marker } }
   end
 
   def tie?
@@ -80,11 +81,7 @@ class Board
       middle += "│"
       (0..size-1).each do |m|
         index = (n * size + m + 1).to_i
-        if index > 9
-          middle += "#{cell_s(index)} │"
-        else
-          middle += " #{cell_s(index)} │"
-        end
+        middle += "#{cell_s(index)}│"
       end
       if (n != size-1)
         middle += "\n│" + "───│"*(size)
@@ -94,9 +91,13 @@ class Board
 
   def cell_s(index)
     if @cells[index - 1] == '-'
-      index.to_s
+      if index > 9
+        "#{index.to_s} "
+      else
+        " #{index.to_s} "
+      end
     else
-      @cells[index - 1]
+      " #{@cells[index - 1]} "
     end
   end
 

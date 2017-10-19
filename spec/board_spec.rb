@@ -31,8 +31,7 @@ describe Board do
     end
 
     it 'after calling #play(2) with 4x4, 2 is unavailable' do
-      board = Board.new(size: 4)
-      board = board.play(2)
+      board = board_with_moves([2], size: 4)
       expect(board.available_moves).to eq([1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
     end
   end
@@ -49,10 +48,7 @@ describe Board do
     end
 
     it 'O after three plays with 4x4' do
-      board = Board.new(size: 4)
-      board = board.play(2)
-      board = board.play(3)
-      board = board.play(8)
+      board = board_with_moves([2, 3, 8], size: 4)
       expect(board.current_marker).to eq('O')
     end
   end
@@ -109,6 +105,12 @@ describe Board do
       board = board_with_moves([7, 8, 5, 6, 3])
       expect(board.game_over?).to be true
     end
+
+    xit 'true when X wins in bottom row4x4' do
+      board = board_with_moves([13, 9, 14, 10, 15, 11, 16], size: 4)
+      puts board
+      expect(board.game_over?).to be true
+    end
   end
 
   describe 'play' do
@@ -143,13 +145,13 @@ describe Board do
       expect(board.to_s).to eq(expected)
     end
     it 'returns 4x4 representation' do
-      board = Board.new(size: 4)
+      board = board_with_moves([11, 1], size: 4)
       expected = %(┌───┬───┬───┬───┐
-│ 1 │ 2 │ 3 │ 4 │
+│ O │ 2 │ 3 │ 4 │
 │───│───│───│───│
 │ 5 │ 6 │ 7 │ 8 │
 │───│───│───│───│
-│ 9 │10 │11 │12 │
+│ 9 │10 │ X │12 │
 │───│───│───│───│
 │13 │14 │15 │16 │
 └───┴───┴───┴───┘)
@@ -157,8 +159,8 @@ describe Board do
     end
   end
 
-  def board_with_moves(moves)
-    board = described_class.new
+  def board_with_moves(moves, size: 3)
+    board = described_class.new(size: size)
     play_moves(board, moves)
   end
 
