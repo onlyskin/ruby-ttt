@@ -4,7 +4,7 @@ require 'ui'
 describe App do
   describe 'run' do
     def output_for_two_games
-        input = StringIO.new("1\n2\n2\n1\n2\n4\n5\n7\n1\n1\n2\n4\n5\n7\n2\n")
+        input = StringIO.new("1\n1\n1\n1\n2\n4\n5\n7\n1\n1\n1\n1\n2\n4\n5\n7\n2\n")
         output = StringIO.new
         ui = Ui.new(input, output)
         app = App.new(ui)
@@ -14,8 +14,8 @@ describe App do
     end
 
     context 'run app with human/computer game' do
-      xit 'runs game' do
-        input = StringIO.new("1\n2\n1\n1\n7\n8\n")
+      it 'runs game' do
+        input = StringIO.new("1\n1\n2\n1\n7\n8\n2")
         output = StringIO.new
         ui = Ui.new(input, output)
         app = App.new(ui)

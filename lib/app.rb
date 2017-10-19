@@ -32,7 +32,7 @@ class App
 
   def run_game
     @ui.clear
-    game = GameFactory.from_input(@ui, Game, @PLAYER_CHOICES)
+    game = GameFactory.from_input(@ui, @PLAYER_CHOICES)
     game.run
     @ui.output('Thanks for playing.')
   end
