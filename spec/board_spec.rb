@@ -106,9 +106,18 @@ describe Board do
       expect(board.game_over?).to be true
     end
 
-    xit 'true when X wins in bottom row4x4' do
+    it 'true when X wins in bottom row 4x4' do
       board = board_with_moves([13, 9, 14, 10, 15, 11, 16], size: 4)
-      puts board
+      expect(board.game_over?).to be true
+    end
+
+    it 'true when O wins in right column 4x4' do
+      board = board_with_moves([2, 3, 6, 7, 8, 11, 4, 15], size: 4)
+      expect(board.game_over?).to be true
+    end
+
+    it 'true when X wins in diagonal 4x4' do
+      board = board_with_moves([1, 12, 6, 7, 11, 15, 16], size: 4)
       expect(board.game_over?).to be true
     end
   end

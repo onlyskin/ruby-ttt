@@ -10,15 +10,10 @@ class Board
     end
 
     rows = Array.new(size){|i| Array.new(size){|j| size*i+j } }
-    columns = [
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8]
-    ]
-    @paths = columns + rows + [
-      [0, 4, 8],
-      [6, 4, 2]
-    ]
+    columns = rows.transpose
+    diagonal_1 = rows.map.with_index { |row, index| row[index] }
+    diagonal_2 = rows.reverse.map.with_index { |row, index| row[index] }
+    @paths = [*rows, *columns, diagonal_1, diagonal_2]
   end
 
   def available_moves
@@ -54,7 +49,7 @@ class Board
   def play(move)
     cells = @cells.clone
     cells[move - 1] = current_marker
-    Board.new(cells: cells)
+    Board.new(cells: cells, size: size)
   end
 
   def to_s
@@ -66,7 +61,7 @@ class Board
   private
 
   def size
-    Math.sqrt(@cells.length)
+    Math.sqrt(@cells.length).to_i
   end
   
   def middle_s
@@ -80,7 +75,7 @@ class Board
       middle = ""
       middle += "│"
       (0..size-1).each do |m|
-        index = (n * size + m + 1).to_i
+        index = (n * size + m + 1)
         middle += "#{cell_s(index)}│"
       end
       if (n != size-1)
