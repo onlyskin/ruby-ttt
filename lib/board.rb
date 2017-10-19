@@ -39,9 +39,7 @@ class Board
   end
 
   def winner
-    if !game_over?
-      raise Exception
-    elsif winner?('X')
+    if winner?('X')
       'X'
     elsif winner?('O')
       'O'
