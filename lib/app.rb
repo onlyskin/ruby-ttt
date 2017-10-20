@@ -10,7 +10,8 @@ class App
     @running = true
     @ui = ui
     @choice_requester = ChoiceRequester.new(ui)
-    @MENU_CHOICES = {'Play' => Proc.new { run_game },
+    @MENU_CHOICES = {'Play 3x3' => Proc.new { run_game },
+                     'Play 4x4' => Proc.new { run_game(board_size: 4) },
                      'Exit' => Proc.new { quit }}
     @PLAYER_CHOICES = {'Human' => HumanPlayer.new(ui),
                        'Computer' => ComputerPlayer.new(Minimax.new)}
@@ -30,9 +31,9 @@ class App
     @MENU_CHOICES.fetch(choice).call
   end
 
-  def run_game
+  def run_game(board_size: 3)
     @ui.clear
-    game = GameFactory.from_input(@ui, @PLAYER_CHOICES)
+    game = GameFactory.from_input(@ui, @PLAYER_CHOICES, board_size: board_size)
     game.run
     @ui.output('Thanks for playing.')
   end
