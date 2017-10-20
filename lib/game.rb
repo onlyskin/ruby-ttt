@@ -3,10 +3,10 @@ require_relative 'move_requester'
 require_relative 'human_player'
 
 class Game
-  def initialize(ui, players)
+  def initialize(ui, players, board_size: 3)
     @ui = ui
     @player1, @player2 = players
-    @board = Board.new
+    @board = Board.new(size: board_size)
   end
 
   def run

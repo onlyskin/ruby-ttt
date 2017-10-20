@@ -26,6 +26,18 @@ describe Game do
         expect(output.string).to include('X won')
       end
 
+      it 'plays a 4x4 game to end' do
+        input = StringIO.new("12\n3\n13\n7\n9\n11\n5\n15")
+        output = StringIO.new
+        ui = Ui.new(input, output)
+        players = [HumanPlayer.new(ui), HumanPlayer.new(ui)]
+        game = Game.new(ui, players, board_size: 4)
+
+        game.run
+
+        expect(output.string).to include('O won')
+      end
+
       it 'plays a human/computer game to end' do
         input = StringIO.new("1\n4\n2\n")
         output = StringIO.new

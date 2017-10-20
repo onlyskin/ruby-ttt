@@ -2,12 +2,12 @@ require_relative 'choice_requester'
 require_relative 'game'
 
 class GameFactory
-  def self.from_input(ui, choice_hash)
+  def self.from_input(ui, choice_hash, board_size: 3)
     choices = self.player_choices(ui, choice_hash)
     players = choices.map do |choice|
       self.choice_to_object(choice_hash, choice)
     end
-    Game.new(ui, players)
+    Game.new(ui, players, board_size: board_size)
   end
   
   private

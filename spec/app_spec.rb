@@ -4,7 +4,7 @@ require 'ui'
 describe App do
   describe 'run' do
     def output_for_two_games
-        input = StringIO.new("1\n1\n1\n1\n2\n4\n5\n7\n1\n1\n1\n1\n2\n4\n5\n7\n2\n")
+        input = StringIO.new("1\n1\n1\n1\n2\n4\n5\n7\n1\n1\n1\n1\n2\n4\n5\n7\n3\n")
         output = StringIO.new
         ui = Ui.new(input, output)
         app = App.new(ui)
@@ -15,7 +15,20 @@ describe App do
 
     context 'run app with human/computer game' do
       it 'runs game' do
-        input = StringIO.new("1\n1\n2\n1\n7\n8\n2")
+        input = StringIO.new("1\n1\n2\n1\n7\n8\n3\n")
+        output = StringIO.new
+        ui = Ui.new(input, output)
+        app = App.new(ui)
+
+        app.run
+
+        expect(output.string).to include('O won')
+      end
+    end
+
+    context 'run app with 4x4 human/human game' do
+      it 'runs game' do
+        input = StringIO.new("2\n1\n1\n13\n4\n14\n8\n15\n12\n11\n16\n3\n")
         output = StringIO.new
         ui = Ui.new(input, output)
         app = App.new(ui)
@@ -53,7 +66,7 @@ describe App do
         allow(ui).to receive(:clear)
         allow(ui).to receive(:output)
         allow(ui).to receive(:input)
-                 .and_return('1', '1', '2', '4', '5', '7', '2')
+                 .and_return('1', '1', '1', '1', '2', '4', '5', '7', '3')
         app = App.new(ui)
 
         app.run
