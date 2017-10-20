@@ -10,8 +10,8 @@ class App
     @running = true
     @ui = ui
     @choice_requester = ChoiceRequester.new(ui)
-    @MENU_CHOICES = {'Play' => self.method(:run_game),
-                     'Exit' => self.method(:exit)}
+    @MENU_CHOICES = {'Play' => Proc.new { run_game },
+                     'Exit' => Proc.new { quit }}
     @PLAYER_CHOICES = {'Human' => HumanPlayer.new(ui),
                        'Computer' => ComputerPlayer.new(Minimax.new)}
   end
@@ -37,7 +37,7 @@ class App
     @ui.output('Thanks for playing.')
   end
 
-  def exit
+  def quit
     @running = false
   end
 end
