@@ -52,6 +52,12 @@ class Board
     Board.new(cells: cells, size: size)
   end
 
+  def to_matrix
+    (0..size-1).each.map do |n|
+      @cells[n*size..n*size+size-1]
+    end
+  end
+
   def to_s
     top_s = "┌───" + "┬───"*(size-1) + "┐\n"
     bottom_s = '└───' + '┴───'*(size-1) + '┘'

@@ -141,6 +141,20 @@ describe Board do
     end
   end
 
+  describe 'to_matrix' do
+    it 'returns matrix of board_cells' do
+      board = board_with_moves([7, 8, 5, 6])
+      expected = [['-', '-', '-'], ['-', 'X', 'O'], ['X', 'O', '-']]
+      expect(board.to_matrix).to eq(expected)
+    end
+
+    it 'returns matrix for 4x4' do
+      board = board_with_moves([11, 1], size: 4)
+      expected = [['O', '-', '-', '-'], ['-', '-', '-', '-'], ['-', '-', 'X', '-'], ['-', '-', '-', '-']]
+      expect(board.to_matrix).to eq(expected)
+    end
+  end
+
   describe 'to_s' do
     it 'returns string representation when to_s called' do
       board = board_with_moves([7, 8, 5, 6])
