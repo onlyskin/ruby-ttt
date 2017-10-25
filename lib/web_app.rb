@@ -13,6 +13,9 @@ class WebApp
       if req.params == {}
         return ['404', {}, []]
       end
+      if req.params.key?('cell')
+        @game.play(req.params['cell'].to_i)
+      end
       matrix = @game.board_matrix
       template = File.read('views/game.html.erb')
     else

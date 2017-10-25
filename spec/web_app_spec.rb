@@ -31,14 +31,22 @@ describe WebApp do
         response = response_for_request('POST', 'start=true')
         html = response[2].each.next
         expect(html).to match(/<form method="post" action=""/)
-        expect(html).to match(/<input type="hidden" name="x" value=/)
-        expect(html).to match(/<input type="hidden" name="y" value=/)
+        expect(html).to match(/<input type="hidden" name="cell" value="9"/)
         expect(html).to match(/<button class="board-cell" type="submit"><\/button>/)
         expect(html).to match(/<button type="submit">/)
         expect(html).to match(/<input type="hidden".*name="reset".*>/)
       end
     end
     
+    context 'post with cell data' do
+      it 'returns html board with played in cells' do
+        response = response_for_request('POST', 'cell=1')
+        html = response[2].each.next
+        expect(html).to match(/button class="board-cell" type="submit">X<\/button>/)
+        expect(html).to match(/button class="board-cell" type="submit">O<\/button>/)
+      end
+    end
+
     context 'post with no data' do
       it 'returns 404' do
         response = response_for_request('POST', '')
