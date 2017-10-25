@@ -16,8 +16,14 @@ class WebGame
 
   def play(move)
     @board = @board.play(move)
-    computer_move = @computer_player.move(@board)
-    @board = @board.play(computer_move)
+    if !game_over?
+      computer_move = @computer_player.move(@board)
+      @board = @board.play(computer_move)
+    end
+  end
+
+  def game_over?
+    @board.game_over?
   end
 
   def game_state

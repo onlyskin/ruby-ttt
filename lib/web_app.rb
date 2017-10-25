@@ -3,8 +3,8 @@ require_relative 'computer_player'
 require_relative 'minimax'
 
 class WebApp
-  def initialize
-    @game = WebGame.new(ComputerPlayer.new(Minimax.new))
+  def initialize(game)
+    @game = game
   end
 
   def call(env)
@@ -16,11 +16,11 @@ class WebApp
       if req.params.key?('cell')
         @game.play(req.params['cell'].to_i)
       end
-      matrix = @game.board_matrix
       template = File.read('views/game.html.erb')
     else
       template = File.read('views/index.html.erb')
     end
+    matrix = @game.board_matrix
     result = ERB.new(template).result(binding)
     ['200', {'Content-Type' => 'text/html'}, [result]]
   end

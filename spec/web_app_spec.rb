@@ -47,6 +47,38 @@ describe WebApp do
       end
     end
 
+    context 'post with cell data that ends the game' do
+      it 'says who the winner is in the page' do
+        minimax = instance_double('Minimax')
+        allow(minimax).to receive(:minimax)
+          .and_return([5, nil], [4, nil], [2, nil], [9, nil])
+        web_game = WebGame.new(ComputerPlayer.new(minimax))
+        web_game.play(1)
+        web_game.play(7)
+        web_game.play(6)
+        web_game.play(8)
+        web_app = WebApp.new(web_game)
+        env = Rack::MockRequest.env_for('', 'REQUEST_METHOD' => 'POST', :input => 'cell=3')
+        response = web_app.call(env)
+        html = response[2].each.next
+        expect(html).to match(/<h1>.*tie.*<\/h1>/)
+      end
+
+      it 'says that it is a tie in the page' do
+        minimax = instance_double('Minimax')
+        allow(minimax).to receive(:minimax)
+          .and_return([2, nil], [5, nil])
+        web_game = WebGame.new(ComputerPlayer.new(minimax))
+        web_game.play(1)
+        web_game.play(4)
+        web_app = WebApp.new(web_game)
+        env = Rack::MockRequest.env_for('', 'REQUEST_METHOD' => 'POST', :input => 'cell=7')
+        response = web_app.call(env)
+        html = response[2].each.next
+        expect(html).to match(/<h1>.*X.*won.*<\/h1>/)
+      end
+    end
+
     context 'post with no data' do
       it 'returns 404' do
         response = response_for_request('POST', '')
@@ -56,7 +88,11 @@ describe WebApp do
   end
 
   def response_for_request(method, data)
-        web_app = WebApp.new
+        minimax = instance_double('Minimax')
+        allow(minimax).to receive(:minimax)
+          .and_return([2, nil], [5, nil])
+        web_game = WebGame.new(ComputerPlayer.new(minimax))
+        web_app = WebApp.new(web_game)
         env = Rack::MockRequest.env_for('', 'REQUEST_METHOD' => method, :input => data)
         response = web_app.call(env)
         response

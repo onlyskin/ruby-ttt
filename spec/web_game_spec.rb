@@ -33,6 +33,23 @@ describe WebGame do
       expect(web_game.game_state).to match(/X.*won/)
     end
   end
+  
+  describe 'game_over' do
+    it 'false when game not over' do
+      web_game = web_game_with_moves([3], [5])
+      expect(web_game.game_over?).to be(false)
+    end
+    
+    it 'true when tie' do
+      web_game = web_game_with_moves([1, 7, 6, 8, 3], [5, 4, 2, 9])
+      expect(web_game.game_over?).to be(true)
+    end
+    
+    it 'true when winner' do
+      web_game = web_game_with_moves([1, 4, 7], [2, 5])
+      expect(web_game.game_over?).to be(true)
+    end
+  end
 
   def web_game_with_moves(moves, computer_moves)
       computer_player = instance_double('ComputerPlayer')
