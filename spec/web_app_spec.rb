@@ -79,6 +79,18 @@ describe WebApp do
       end
     end
 
+    context 'post with reset' do
+      it 'returns html with buttons with empty cells' do
+        response = response_for_request('POST', 'reset=true')
+        html = response[2].each.next
+        expect(html).to match(/<form method="post" action=""/)
+        expect(html).to match(/<input type="hidden" name="cell" value="9"/)
+        expect(html).to match(/<button class="board-cell" type="submit"><\/button>/)
+        expect(html).to match(/<button type="submit">/)
+        expect(html).to match(/<input type="hidden".*name="reset".*>/)
+      end
+    end
+
     context 'post with no data' do
       it 'returns 404' do
         response = response_for_request('POST', '')

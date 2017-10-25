@@ -16,6 +16,9 @@ class WebApp
       if req.params.key?('cell')
         @game.play(req.params['cell'].to_i)
       end
+      if req.params.key?('reset')
+        @game = WebGame.new(ComputerPlayer.new(Minimax.new))
+      end
       template = File.read('views/game.html.erb')
     else
       template = File.read('views/index.html.erb')
