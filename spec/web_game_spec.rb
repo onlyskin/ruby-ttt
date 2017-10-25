@@ -5,11 +5,11 @@ describe WebGame do
   describe '#board_matrix' do
     it '1-9 matrix at start' do
       web_game = web_game_with_moves([])
-      expect(web_game.board_matrix).to eq([['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']])
+      expect(web_game.board_matrix).to eq([['', '', ''], ['', '', ''], ['', '', '']])
     end
     it 'X in 3, O in 5 after playing in cell' do
       web_game = web_game_with_moves([3])
-      expect(web_game.board_matrix).to eq([['-', '-', 'X'], ['-', 'O', '-'], ['-', '-', '-']])
+      expect(web_game.board_matrix).to eq([['', '', 'X'], ['', 'O', ''], ['', '', '']])
     end
     it 'computer player doesnt play if game over' do
       web_game = web_game_with_moves([1, 7, 6, 8, 3])
