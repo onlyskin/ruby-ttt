@@ -20,6 +20,16 @@ class WebGame
     @board = @board.play(computer_move)
   end
 
+  def game_state
+    if @board.game_over?
+      if @board.tie?
+        return 'The game was a tie.'
+      end
+      return "#{@board.winner} won the game."
+    end
+    ''
+  end
+
   private
 
   def _cell_format(cell)
