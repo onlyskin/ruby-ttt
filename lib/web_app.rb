@@ -48,7 +48,7 @@ class WebApp
 
   def handle_session(req, response)
     if req.params.key?('start') || req.params.key?('reset')
-      response.set_header('session', new_session_id)
+      response.set_cookie('session_id', new_session_id)
     end
   end
 

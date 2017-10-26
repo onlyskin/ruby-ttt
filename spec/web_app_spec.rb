@@ -19,14 +19,14 @@ describe WebApp do
 
       it 'doesnt set session cookie' do
         response = @mock_request.get('')
-        expect(response.has_header?('session')).to be(false)
+        expect(response.has_header?('Set-Cookie')).to be(false)
       end
     end
 
     context 'post with start=true' do
       it 'sets session cookie' do
         response = @mock_request.post('', :input => 'start=true')
-        expect(response.get_header('session')).to eq('1')
+        expect(response.get_header('Set-Cookie')).to eq('session_id=1')
       end
 
       it 'returns status code 200 and content-type' do
@@ -84,9 +84,9 @@ describe WebApp do
     context 'post with reset' do
       it 'sets new session cookie' do
         response = @mock_request.post('', :input => 'start=true')
-        expect(response.get_header('session')).to eq('1')
+        expect(response.get_header('Set-Cookie')).to eq('session_id=1')
         response = @mock_request.post('', :input => 'reset=true')
-        expect(response.get_header('session')).to eq('2')
+        expect(response.get_header('Set-Cookie')).to eq('session_id=2')
       end
     end
 
