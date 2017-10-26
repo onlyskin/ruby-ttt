@@ -51,6 +51,11 @@ describe WebApp do
         expect(response.body).to match(/button class="board-cell" type="submit">X<\/button>/)
         expect(response.body).to match(/button class="board-cell" type="submit">O<\/button>/)
       end
+
+      it 'response sends the same session cookie that it received' do
+        response = @mock_request.post('', :input => 'cell=1', 'HTTP_COOKIE' => 'session_id=1')
+        expect(response.get_header('Set-Cookie')).to eq('session_id=1')
+      end
     end
 
     context 'post with cell data that ends the game' do
