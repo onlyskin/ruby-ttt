@@ -17,6 +17,10 @@ class SessionManager
     retrieve_game(id).board_matrix
   end
 
+  def game_result(id)
+    retrieve_game(id).game_result
+  end
+
   def play(id, move)
     retrieve_game(id).play(move)
   end
