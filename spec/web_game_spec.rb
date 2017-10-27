@@ -17,20 +17,20 @@ describe WebGame do
     end
   end
 
-  describe 'game_state' do
+  describe 'game_result' do
     it 'returns empty string when game not over' do
       web_game = web_game_with_moves([3], [5])
-      expect(web_game.game_state).to eq('')
+      expect(web_game.game_result).to eq('')
     end
     
     it 'returns tie when the game is a tie' do
       web_game = web_game_with_moves([1, 7, 6, 8, 3], [5, 4, 2, 9])
-      expect(web_game.game_state).to match(/tie/)
+      expect(web_game.game_result).to match(/tie/)
     end
     
     it 'returns winner when there is a winner' do
       web_game = web_game_with_moves([1, 4, 7], [2, 5])
-      expect(web_game.game_state).to match(/X.*won/)
+      expect(web_game.game_result).to match(/X.*won/)
     end
   end
   

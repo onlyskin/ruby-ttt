@@ -26,7 +26,7 @@ class WebGame
     @board.game_over?
   end
 
-  def game_state
+  def game_result
     if @board.game_over?
       if @board.tie?
         return 'The game was a tie.'
