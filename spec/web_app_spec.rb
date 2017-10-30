@@ -105,4 +105,21 @@ describe WebApp do
       expect(@session_manager).to have_received(:game_result).with(3)
     end
   end
+
+  describe 'post to other' do
+    it 'returns status 404' do
+      response = @mock_request.get('/invalid')
+      expect(response.status).to eq(404)
+    end
+
+    it 'returns content-type html' do
+      response = @mock_request.post('/invalid')
+      expect(response.get_header('Content-Type')).to eq('text/html')
+    end
+    
+    it 'returns html' do
+      response = @mock_request.get('/invalid')
+      expect(response.body).to match(/Invalid/)
+    end
+  end
 end

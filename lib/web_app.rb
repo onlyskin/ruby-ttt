@@ -11,6 +11,8 @@ class WebApp
       start_route
     elsif path_info == '/play'
       play_route(env)
+    else
+      invalid_route
     end
   end
 
@@ -46,5 +48,10 @@ class WebApp
     matrix = @session_manager.game_state(game_id.to_i)
     template = File.read('views/game.html.erb')
     ERB.new(template).result(binding)
+  end
+
+  def invalid_route
+    html = '<h1>404 - Invalid address</h1>'
+    Rack::Response.new(html, 404, {'Content-Type' => 'text/html'})
   end
 end
