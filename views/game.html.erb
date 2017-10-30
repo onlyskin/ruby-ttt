@@ -33,7 +33,7 @@
       <% (0..2).each do |row| %>
 		  <div class="row">          
         <% (0..2).each do |column| %>
-          <form method="post" action="">
+          <form method="post" action="play">
             <input type="hidden" name="cell" value="<%=row * 3 + column + 1%>">
             <button class="board-cell" type="submit"><%=matrix[row][column]%></button>
           </form>
@@ -42,9 +42,8 @@
     <% end%>
     </div>
     <div>Click in a cell to play.</div>
-    <h1><%=game_state%></h1>
-    <form method="post" action="">
-      <input type="hidden" name="reset" value="true">
+    <h1><%=game_result%></h1>
+    <form method="post" action="/start">
       <button type="submit">
         reset game
       </button>

@@ -1,67 +1,50 @@
-require_relative 'web_game'
-require_relative 'computer_player'
-require_relative 'minimax'
-
 class WebApp
-  def initialize(game)
-    @session_generator = 0
-    @game = game
+  def initialize(session_manager)
+    @session_manager = session_manager
   end
 
   def call(env)
-    req = Rack::Request.new(env)
-    if req.get?
-      return get_response(req)
-    end
-    if req.post?
-      return post_response(req)
+    path_info = env.fetch('PATH_INFO')
+    if path_info == '/'
+      index_route
+    elsif path_info == '/start'
+      start_route
+    elsif path_info == '/play'
+      play_route(env)
     end
   end
 
   private
 
-  def post_response(req)
-    if req.params == {}
-      return ['404', {}, []]
-    end
-
-    handle_play(req)
-    template = render_template
-    response = Rack::Response.new(template, 200, {'Content-Type' => 'text/html'})
-    handle_session(req, response)
-    
-    response
-  end
-
-  def handle_play(req)
-    if req.params.key?('cell')
-      @game.play(req.params['cell'].to_i)
-    end
-  end
-
-  def render_template
-    template = File.read('views/game.html.erb')
-    matrix = @game.board_matrix
-    game_state = @game.game_state
-    ERB.new(template).result(binding)
-  end
-
-  def handle_session(req, response)
-    if req.params.key?('start') || req.params.key?('reset')
-      response.set_cookie('session_id', new_session_id)
-    else
-      response.set_cookie('session_id', req.cookies['session_id'])
-    end
-  end
-
-  def get_response(req)
+  def index_route
     template = File.read('views/index.html.erb')
-    result = ERB.new(template).result(binding)
-    Rack::Response.new(result, 200, {'Content-Type' => 'text/html'})
+    html = ERB.new(template).result(binding)
+    Rack::Response.new(html, 200, {'Content-Type' => 'text/html'})
   end
 
-  def new_session_id
-    @session_generator = @session_generator + 1
-    @session_generator.to_s
+  def start_route
+    game_id = @session_manager.new_game_id
+    html = render_game_template(game_id)
+    response = Rack::Response.new(html, 200, {'Content-Type' => 'text/html'})
+    response.set_cookie('session_id', game_id)
+    return response
+  end
+
+  def play_route(env)
+    req = Rack::Request.new(env)
+    game_id = req.cookies['session_id']
+    move = req.params['cell'].to_i
+    @session_manager.play(game_id.to_i, move)
+    html = render_game_template(game_id)
+    response = Rack::Response.new(html, 200, {'Content-Type' => 'text/html'})
+    response.set_cookie('session_id', game_id)
+    return response
+  end
+
+  def render_game_template(game_id)
+    game_result = @session_manager.game_result(game_id.to_i)
+    matrix = @session_manager.game_state(game_id.to_i)
+    template = File.read('views/game.html.erb')
+    ERB.new(template).result(binding)
   end
 end
