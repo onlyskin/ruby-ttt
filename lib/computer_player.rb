@@ -4,7 +4,7 @@ class ComputerPlayer
   end
   
   def move(board)
-    move = @negamax.negamax(board, nil, 0)
+    move = @negamax.negamax(board)
     move[0]
   end
 end

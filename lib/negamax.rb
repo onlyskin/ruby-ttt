@@ -1,9 +1,8 @@
 class Negamax
-  def negamax(board, marker, depth)
-    marker = board.current_marker if marker.nil?
+  def negamax(board)
 
     if board.game_over?
-      return [nil, score(board, marker)]
+      return [nil, score(board)]
     end
 
     best_score = -1000000
@@ -11,7 +10,7 @@ class Negamax
 
     board.available_moves.map do |move|
       new_board = board.play(move)
-      x = negamax(new_board, marker, depth + 1)
+      x = negamax(new_board)
       x[1] = -x[1]
       if x[1] > best_score
         best_score = x[1]
@@ -24,7 +23,7 @@ class Negamax
 
   private
 
-  def score(board, marker)
+  def score(board)
     if board.tie?
       0
     elsif board.winner?(board.current_marker)
