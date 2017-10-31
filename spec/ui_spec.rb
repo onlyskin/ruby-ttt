@@ -1,4 +1,4 @@
-require 'Ui'
+require 'ui'
 
 describe Ui do
   describe 'output' do
