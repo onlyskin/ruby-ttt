@@ -16,20 +16,20 @@ class Negamax
 
     nodes = board.available_moves.map do |move|
       new_board = board.play(move)
-      x = negamax(new_board, marker, depth + 1, -beta, -alpha, -colour)
-      x[1] = -x[1]
+      new_score = -negamax(new_board, marker, depth + 1, -beta, -alpha, -colour)[1]
 
-      if x[1] > best_score
-        best_score = x[1]
+      if new_score > best_score
+        best_score = new_score
         best_position = move
       end
-      alpha = [alpha, x[1]].max
+
+      alpha = [alpha, new_score].max
 
       if alpha >= beta
-        return [move, x[1]]
+        return [move, new_score]
       end
 
-      [move, x[1]]
+      [move, new_score]
     end
 
     best_by_score(nodes)
