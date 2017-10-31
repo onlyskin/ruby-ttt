@@ -1,4 +1,7 @@
 class Negamax
+  WINNING_SCORE = 10
+  LOSING_SCORE = -10
+
   def negamax(board)
 
     if board.game_over?
@@ -27,9 +30,9 @@ class Negamax
     if board.tie?
       0
     elsif board.winner?(board.current_marker)
-      10
+      WINNING_SCORE
     else
-      -10
+      LOSING_SCORE
     end
   end
 end
