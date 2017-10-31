@@ -7,10 +7,19 @@ describe WebGame do
       web_game = web_game_with_moves([], [5])
       expect(web_game.board_matrix).to eq([['', '', ''], ['', '', ''], ['', '', '']])
     end
+
     it 'X in 3, O in 5 after playing in cell' do
       web_game = web_game_with_moves([3], [5, 4, 2, 9])
       expect(web_game.board_matrix).to eq([['', '', 'X'], ['', 'O', ''], ['', '', '']])
     end
+
+    it 'doesnt play when move not available' do
+      web_game = web_game_with_moves([3], [5])
+      web_game.play(3)
+
+      expect(web_game.board_matrix).to eq([['', '', 'X'], ['', 'O', ''], ['', '', '']])
+    end
+
     it 'computer player doesnt play if game over' do
       web_game = web_game_with_moves([1, 7, 6, 8, 3], [5, 4, 2, 9])
       expect(web_game.board_matrix).to eq([['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 'X', 'O']])

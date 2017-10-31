@@ -15,10 +15,12 @@ class WebGame
   end
 
   def play(move)
-    @board = @board.play(move)
-    if !game_over?
-      computer_move = @computer_player.move(@board)
-      @board = @board.play(computer_move)
+    if @board.available_moves.include?(move)
+      @board = @board.play(move)
+      if !game_over?
+        computer_move = @computer_player.move(@board)
+        @board = @board.play(computer_move)
+      end
     end
   end
 
