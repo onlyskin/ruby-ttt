@@ -1,24 +1,24 @@
 require 'computer_player'
-require 'minimax'
+require 'negamax'
 require 'board'
 
 describe ComputerPlayer do
   describe 'move' do
-    it 'calls minimax on injected minimax' do
-      minimax = instance_double(Minimax)
-      allow(minimax).to receive(:minimax)
+    it 'calls negamax on injected negamax' do
+      negamax = instance_double(Negamax)
+      allow(negamax).to receive(:negamax)
                     .and_return([1, 10])
-      computer_player = ComputerPlayer.new(minimax)
+      computer_player = ComputerPlayer.new(negamax)
       board = instance_double(Board)
 
       computer_player.move(board)
 
-      expect(minimax).to have_received(:minimax)
+      expect(negamax).to have_received(:negamax)
     end
     
     it 'takes winning move' do
-      minimax = Minimax.new
-      computer_player = ComputerPlayer.new(minimax)
+      negamax = Negamax.new
+      computer_player = ComputerPlayer.new(negamax)
       board = Board.new(cells: ['X', 'O', '-', 'X', 'O', '-', '-', '-', '-'])
 
       move = computer_player.move(board)

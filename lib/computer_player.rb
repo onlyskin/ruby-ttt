@@ -1,10 +1,10 @@
 class ComputerPlayer
-  def initialize(minimax)
-    @minimax = minimax
+  def initialize(negamax)
+    @negamax = negamax
   end
   
   def move(board)
-    move = @minimax.minimax(board, nil, 0)
+    move = @negamax.negamax(board, nil, 0)
     move[0]
   end
 end

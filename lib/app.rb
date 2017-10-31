@@ -1,5 +1,5 @@
+require_relative 'negamax'
 require_relative 'game'
-require_relative 'minimax'
 require_relative 'computer_player'
 require_relative 'choice_requester'
 require_relative 'game_factory'
@@ -14,7 +14,7 @@ class App
                      'Play 4x4' => Proc.new { run_game(board_size: 4) },
                      'Exit' => Proc.new { quit }}
     @PLAYER_CHOICES = {'Human' => HumanPlayer.new(ui),
-                       'Computer' => ComputerPlayer.new(Minimax.new)}
+                       'Computer' => ComputerPlayer.new(Negamax.new)}
   end
 
   def run

@@ -1,6 +1,6 @@
 require 'game'
 require 'ui'
-require 'minimax'
+require 'negamax'
 require 'computer_player'
 
 describe Game do
@@ -43,10 +43,10 @@ describe Game do
         output = StringIO.new
         ui = Ui.new(input, output)
         computer_player = instance_double(ComputerPlayer)
-        minimax = instance_double(Minimax)
-        allow(minimax).to receive(:minimax)
+        negamax = instance_double(Negamax)
+        allow(negamax).to receive(:negamax)
                       .and_return([5, 10], [7, 10], [3, 10])
-        players = [HumanPlayer.new(ui), ComputerPlayer.new(minimax)]
+        players = [HumanPlayer.new(ui), ComputerPlayer.new(negamax)]
         game = Game.new(ui, players)
 
         game.run
