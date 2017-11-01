@@ -18,13 +18,17 @@ class Ui
   end
 
   def output_board(board)
-    top_s = "┌───" + "┬───"*(board.size-1) + "┐\n"
-    bottom_s = '└───' + '┴───'*(board.size-1) + '┘'
-    output(top_s + middle_s(board) + bottom_s)
+    output(board_string(board))
   end
   
   private
 
+  def board_string(board)
+    top_s = "┌───" + "┬───"*(board.size-1) + "┐\n"
+    bottom_s = '└───' + '┴───'*(board.size-1) + '┘'
+    top_s + middle_s(board) + bottom_s
+  end
+  
   def middle_s(board)
     rows = (0..board.size-1).each.map do |n|
       row_s(board, n)
