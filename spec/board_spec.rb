@@ -155,33 +155,6 @@ describe Board do
     end
   end
 
-  describe 'to_s' do
-    it 'returns string representation when to_s called' do
-      board = board_with_moves([7, 8, 5, 6])
-      expected = %(┌───┬───┬───┐
-│ 1 │ 2 │ 3 │
-│───│───│───│
-│ 4 │ X │ O │
-│───│───│───│
-│ X │ O │ 9 │
-└───┴───┴───┘)
-      expect(board.to_s).to eq(expected)
-    end
-    it 'returns 4x4 representation' do
-      board = board_with_moves([11, 1], size: 4)
-      expected = %(┌───┬───┬───┬───┐
-│ O │ 2 │ 3 │ 4 │
-│───│───│───│───│
-│ 5 │ 6 │ 7 │ 8 │
-│───│───│───│───│
-│ 9 │10 │ X │12 │
-│───│───│───│───│
-│13 │14 │15 │16 │
-└───┴───┴───┴───┘)
-      expect(board.to_s).to eq(expected)
-    end
-  end
-
   def board_with_moves(moves, size: 3)
     board = described_class.new(size: size)
     play_moves(board, moves)

@@ -1,5 +1,6 @@
 class Board
   MARKERS = %w[O X]
+  attr_reader :cells
 
   def initialize(cells: :no_cells_passed, size: 3)
     if cells == :no_cells_passed
@@ -57,49 +58,11 @@ class Board
     end
   end
 
-  def to_s
-    top_s = "┌───" + "┬───"*(size-1) + "┐\n"
-    bottom_s = '└───' + '┴───'*(size-1) + '┘'
-    top_s + middle_s + bottom_s
-  end
-
-  private
-
   def size
     Math.sqrt(@cells.length).to_i
   end
   
-  def middle_s
-    rows = (0..size-1).each.map do |n|
-      row_s(n)
-    end
-    rows.join("\n") + "\n"
-  end
-
-  def row_s(n)
-      middle = ""
-      middle += "│"
-      (0..size-1).each do |m|
-        index = (n * size + m + 1)
-        middle += "#{cell_s(index)}│"
-      end
-      if (n != size-1)
-        middle += "\n│" + "───│"*(size)
-      end
-      middle
-  end
-
-  def cell_s(index)
-    if @cells[index - 1] == '-'
-      if index > 9
-        "#{index.to_s} "
-      else
-        " #{index.to_s} "
-      end
-    else
-      " #{@cells[index - 1]} "
-    end
-  end
+  private
 
   def full?
     available_moves.empty?

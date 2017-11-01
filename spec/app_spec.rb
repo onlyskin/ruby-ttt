@@ -65,6 +65,7 @@ describe App do
         ui = instance_double(Ui)
         allow(ui).to receive(:clear)
         allow(ui).to receive(:output)
+        allow(ui).to receive(:output_board)
         allow(ui).to receive(:input)
                  .and_return('1', '1', '1', '1', '2', '4', '5', '7', '3')
         app = App.new(ui)

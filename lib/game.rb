@@ -39,7 +39,7 @@ class Game
   end
 
   def output_board
-    @ui.output(@board.to_s)
+    @ui.output_board(@board)
   end
 
   def end_message
