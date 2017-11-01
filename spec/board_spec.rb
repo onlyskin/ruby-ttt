@@ -155,6 +155,20 @@ describe Board do
     end
   end
 
+  describe 'size' do
+    it 'returns 3 for size 3 board' do
+      board = Board.new
+
+      expect(board.size).to eq(3)
+    end
+
+    it 'returns 4 for size 4 board' do
+      board = Board.new(size: 4)
+
+      expect(board.size).to eq(4)
+    end
+  end
+
   def board_with_moves(moves, size: 3)
     board = described_class.new(size: size)
     play_moves(board, moves)
