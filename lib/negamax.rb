@@ -7,6 +7,10 @@ class Negamax
       marker = board.current_marker
     end
 
+    if depth == 9
+      return [nil, 0]
+    end
+
     if board.game_over?
       return [nil, colour * score(board, depth, marker)]
     end
