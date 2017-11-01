@@ -7,7 +7,7 @@ class Negamax
       marker = board.current_marker
     end
 
-    if depth == 9
+    if depth == 8
       return [nil, LOSING_SCORE]
     end
 
