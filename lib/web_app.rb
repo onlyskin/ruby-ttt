@@ -21,13 +21,13 @@ class WebApp
   def index_route
     template = File.read('views/index.html.erb')
     html = ERB.new(template).result(binding)
-    [200, {'Content-Type' => 'text/html'}, html]
+    [200, {'Content-Type' => 'text/html'}, [html]]
   end
 
   def start_route
     game_id = @session_manager.new_game_id
     html = render_game_template(game_id)
-    [200, {'Content-Type' => 'text/html', 'Set-Cookie' => "session_id=#{game_id}"}, html]
+    [200, {'Content-Type' => 'text/html', 'Set-Cookie' => "session_id=#{game_id}"}, [html]]
   end
 
   def play_route(env)
@@ -36,7 +36,7 @@ class WebApp
     move = req.params['cell'].to_i
     @session_manager.play(game_id.to_i, move)
     html = render_game_template(game_id)
-    [200, {'Content-Type' => 'text/html', 'Set-Cookie' => "session_id=#{game_id}"}, html]
+    [200, {'Content-Type' => 'text/html', 'Set-Cookie' => "session_id=#{game_id}"}, [html]]
   end
 
   def render_game_template(game_id)
@@ -48,6 +48,6 @@ class WebApp
 
   def invalid_route
     html = '<h1>404 - Invalid address</h1>'
-    [404, {'Content-Type' => 'text/html'}, html]
+    [404, {'Content-Type' => 'text/html'}, [html]]
   end
 end
