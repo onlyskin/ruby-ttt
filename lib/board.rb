@@ -1,18 +1,14 @@
 class Board
   MARKERS = %w[O X]
 
-  def initialize(cells: 'no_cells_passed', size: 3)
-    if cells == 'no_cells_passed'
+  def initialize(cells: :no_cells_passed, size: 3)
+    if cells == :no_cells_passed
       @cells = ['-'] * size * size
     else
       @cells = cells
     end
 
-    rows = Array.new(size){|i| Array.new(size){|j| size*i+j } }
-    columns = rows.transpose
-    diagonal_1 = rows.map.with_index { |row, index| row[index] }
-    diagonal_2 = rows.reverse.map.with_index { |row, index| row[index] }
-    @paths = [*rows, *columns, diagonal_1, diagonal_2]
+    @paths = paths(size)
   end
 
   def available_moves
@@ -34,18 +30,18 @@ class Board
   end
 
   def tie?
-    full? && !winner?('X') && !winner?('O')
+    full? && !winner?(MARKERS[1]) && !winner?(MARKERS[0])
   end
 
   def game_over?
-    winner?('X') || winner?('O') || tie?
+    winner?(MARKERS[1]) || winner?(MARKERS[0]) || tie?
   end
 
   def winner
-    if winner?('X')
-      'X'
-    elsif winner?('O')
-      'O'
+    if winner?(MARKERS[1])
+      MARKERS[1]
+    elsif winner?(MARKERS[0])
+      MARKERS[0]
     end
   end
 
@@ -107,5 +103,13 @@ class Board
 
   def full?
     available_moves.empty?
+  end
+
+  def paths(size)
+    rows = Array.new(size){|i| Array.new(size){|j| size*i+j } }
+    columns = rows.transpose
+    diagonal_1 = rows.map.with_index { |row, index| row[index] }
+    diagonal_2 = rows.reverse.map.with_index { |row, index| row[index] }
+    [*rows, *columns, diagonal_1, diagonal_2]
   end
 end
