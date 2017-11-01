@@ -11,7 +11,7 @@ describe MoveRequester do
     @move_requester = MoveRequester.new(@ui)
   end
 
-  context 'call request' do
+  describe 'request' do
     it 'outputs move request message' do
       set_ui_input(['6'])
 

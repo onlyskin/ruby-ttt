@@ -20,54 +20,52 @@ describe Game do
   end
 
   describe 'run' do
-    context 'run game' do
-      it 'plays a human/human game to end' do
-        output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
-        expect(output.string).to include('X won')
-      end
+    it 'plays a human/human game to end' do
+      output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
+      expect(output.string).to include('X won')
+    end
 
-      it 'plays a 4x4 game to end' do
-        input = StringIO.new("12\n3\n13\n7\n9\n11\n5\n15")
-        output = StringIO.new
-        ui = Ui.new(input, output)
-        players = [HumanPlayer.new(ui), HumanPlayer.new(ui)]
-        game = Game.new(ui, players, board_size: 4)
+    it 'plays a 4x4 game to end' do
+      input = StringIO.new("12\n3\n13\n7\n9\n11\n5\n15")
+      output = StringIO.new
+      ui = Ui.new(input, output)
+      players = [HumanPlayer.new(ui), HumanPlayer.new(ui)]
+      game = Game.new(ui, players, board_size: 4)
 
-        game.run
+      game.run
 
-        expect(output.string).to include('O won')
-      end
+      expect(output.string).to include('O won')
+    end
 
-      it 'plays a human/computer game to end' do
-        input = StringIO.new("1\n4\n2\n")
-        output = StringIO.new
-        ui = Ui.new(input, output)
-        computer_player = instance_double(ComputerPlayer)
-        negamax = instance_double(Negamax)
-        allow(negamax).to receive(:negamax)
-                      .and_return([5, 10], [7, 10], [3, 10])
-        players = [HumanPlayer.new(ui), ComputerPlayer.new(negamax)]
-        game = Game.new(ui, players)
+    it 'plays a human/computer game to end' do
+      input = StringIO.new("1\n4\n2\n")
+      output = StringIO.new
+      ui = Ui.new(input, output)
+      computer_player = instance_double(ComputerPlayer)
+      negamax = instance_double(Negamax)
+      allow(negamax).to receive(:negamax)
+                    .and_return([5, 10], [7, 10], [3, 10])
+      players = [HumanPlayer.new(ui), ComputerPlayer.new(negamax)]
+      game = Game.new(ui, players)
 
-        game.run
+      game.run
 
-        expect(output.string).to include('O won')
-      end
+      expect(output.string).to include('O won')
+    end
 
-      it 'turns board in to printable string for each move made' do
-        output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
-        expect(output.string).to include('X', 'O', '1', '│', '└')
-      end
+    it 'turns board in to printable string for each move made' do
+      output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
+      expect(output.string).to include('X', 'O', '1', '│', '└')
+    end
 
-      it 'prints who won' do
-        output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
-        expect(output.string).to include('X won')
-      end
+    it 'prints who won' do
+      output = output_from_human_human_game_with_input([1, 4, 7], [2, 5])
+      expect(output.string).to include('X won')
+    end
 
-      it 'prints that it is a tie' do
-        output = output_from_human_human_game_with_input([1, 7, 6, 8, 3], [5, 4, 2, 9])
-        expect(output.string).to include('tie')
-      end
+    it 'prints that it is a tie' do
+      output = output_from_human_human_game_with_input([1, 7, 6, 8, 3], [5, 4, 2, 9])
+      expect(output.string).to include('tie')
     end
   end
 end

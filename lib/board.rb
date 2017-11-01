@@ -1,4 +1,3 @@
-# A class which updates and reports the state of the Board
 class Board
   MARKERS = %w[O X]
 
@@ -27,7 +26,11 @@ class Board
   end
 
   def winner?(marker)
-    @paths.any? { |path| path.all? { |cell| @cells[cell] == marker } }
+    @paths.any? do |path|
+      path.all? do |cell|
+        @cells[cell] == marker
+      end
+    end
   end
 
   def tie?
