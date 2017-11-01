@@ -8,7 +8,7 @@ class Negamax
     end
 
     if depth == 9
-      return [nil, 0]
+      return [nil, LOSING_SCORE]
     end
 
     if board.game_over?
