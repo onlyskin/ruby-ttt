@@ -1,16 +1,13 @@
 class SessionManager
-  def initialize(web_game_factory, computer_player, id_generator)
+  def initialize(web_game_factory, computer_player)
     @web_game_factory = web_game_factory
     @computer_player = computer_player
-    @id_generator = id_generator
     @id_to_session = {}
   end
 
-  def new_game_id()
+  def new_game(id)
     game = @web_game_factory.make_game(@computer_player)
-    id = @id_generator.id
     @id_to_session[id] = game
-    id
   end
 
   def game_state(id)
