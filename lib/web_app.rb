@@ -25,6 +25,7 @@ class WebApp
   end
 
   def start_route(env)
+    env['rack.session']['init'] = true
     game_id = env['rack.session']['session_id']
     @session_manager.new_game(game_id)
     html = render_game_template(game_id)
@@ -33,6 +34,7 @@ class WebApp
 
   def play_route(env)
     req = Rack::Request.new(env)
+    env['rack.session']['init'] = true
     game_id = env['rack.session']['session_id']
     move = req.params['cell'].to_i
     @session_manager.play(game_id, move)
